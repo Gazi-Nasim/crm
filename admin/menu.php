@@ -150,13 +150,6 @@ $base_url = "http://localhost/crm/admin";
                       <p>Admin Wise</p>
                     </a>
                   </li>
-
-                  <!-- <li class="nav-item">
-                    <a href="<?php echo $base_url ?>/bijoy/payment.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "mr_pay") { echo "active_one"; } ?>">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Marketing Wise </p>
-                    </a>
-                  </li> -->
                   
                   <li class="nav-item">
                     <a href="<?php echo $base_url ?>/tawhid/payment_sa_Wise.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "ad_to_pay") { echo "active_one"; } ?>">
@@ -308,13 +301,6 @@ $base_url = "http://localhost/crm/admin";
                     </a>
                   </li>
 
-                  <!-- <li class="nav-item">
-                    <a href="<?php echo $base_url ?>/mahmud/marketing.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "crt_mr") { echo "active_one"; } ?>  ">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Creat Marketing Manager</p>
-                    </a>
-                  </li> -->
-
                 </ul>                 
                 
               </li>
@@ -400,14 +386,6 @@ $base_url = "http://localhost/crm/admin";
                       <p>Manager Target</p>
                     </a>
                   </li>
-
-                  <!-- <li class="nav-item">
-                    <a href="<?php echo $base_url ?>/ashraful/" class="nav-link">
-                      <i class="fas fa-calculator"></i>
-                      <p>Dealer Target</p>
-                    </a>
-                  </li> -->
-
 
                 </ul>
               </li>

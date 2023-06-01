@@ -32,11 +32,11 @@ if (isset($_POST['email'])) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="./dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -52,11 +52,15 @@ if (isset($_POST['email'])) {
         <form action="" method="post">
           <div class="input-group mb-3">
             <input type="email" name="email" class="form-control" placeholder="Email" required>
+
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+          </div>
+          <div class="input-group">
+            <h6>E-mail:super@gmail.com</h6>
           </div>
           <div class="input-group mb-3">
             <input type="password" name="password" class="form-control" placeholder="Password" required>
@@ -65,6 +69,9 @@ if (isset($_POST['email'])) {
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+          </div>
+          <div class="input-group">
+            <h6>Password:12345</h6>
           </div>
           <div class="row">
             <div class="col-8">
