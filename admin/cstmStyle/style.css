@@ -1,0 +1,42 @@
+.active_one {
+    background-color: #ffffff !important;
+    color: black !important;
+}
+
+
+/* #angleRight{
+    i.right{
+        @include rotate(+90deg !important );
+    }
+}  */
+
+
+
+/* .menu-open,
+.menu-is-opening {
+    >.nav-link {
+
+        svg.right,
+        i.right {
+            @include rotate(+90deg !important );
+        } 
+    }
+} */
+
+
+
+/* .nav-link>.right,
+.nav-link>p>.right {
+    position: absolute;
+    right: 1rem;
+    top: .7rem;
+
+    i,
+    span {
+        margin-left: .5rem;
+    }
+
+    &:nth-child(2) {
+        right: 2.2rem;
+    }
+} */
