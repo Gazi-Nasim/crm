@@ -59,21 +59,21 @@ $data = $con->query($q);
                 </thead>
                 <tbody id="pID">
                 <?php while ($d = $data->fetch_assoc()) { 
-                       $dk = $con->query('select * from products where id ='.$d['product_id'])->fetch_array();
-                       $da = $con->query('select * from admin where id ='.$d['dealer_id'])->fetch_array();
+                       $dk = $con->query('SELECT * from products where id ='.$d['product_id'])->fetch_array();
+                       $da = $con->query('SELECT * from admin where id ='.$d['dealer_id'])->fetch_array();
                       ?>
                     <tr>
-                        <td><?php echo $d['id']; ?></td>
-                        <td><?php echo $da['name'] ?></td>
-                        <td><?php echo $d['invoice_id'] ?></td>
-                        <td><?php echo $dk['name'] ?></td>
-                        <td><?php echo $d['price'] ?></td>
-                        <td><?php echo $d['quantity'] ?></td>
+                        <td><?php echo $d['id'] ?? ""  ?></td>
+                        <td><?php echo $da['name'] ?? ""  ?></td>
+                        <td><?php echo $d['invoice_id'] ?? ""  ?></td>
+                        <td><?php echo $dk['name'] ?? "" ?></td>
+                        <td><?php echo $d['price'] ?? ""  ?></td>
+                        <td><?php echo $d['quantity'] ?? ""  ?></td>
                         <!-- <td><?php echo $d['total'] ?></td>
-                        <td><?php echo $d['vat'] ?></td> -->
-                        <td><?php echo $d['discount'] ?></td>
-                        <td><?php echo $d['payable'] ?></td>
-                        <td><?php echo $d['created_at'] ?></td>
+                        <td><?php echo $d['vat'] ?? ""  ?></td> -->
+                        <td><?php echo $d['discount'] ?? ""  ?></td>
+                        <td><?php echo $d['payable'] ?? ""  ?></td>
+                        <td><?php echo $d['created_at'] ?? ""  ?></td>
                         <td>
                         <a href="edit_invoice.php?invoice_id=<?php echo $d['invoice_id'] ?>" class="btn btn-success btn-xs">
                         <i class="fa fa-edit" style="color:white;"></i>
@@ -140,17 +140,6 @@ $data = $con->query($q);
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <script src="../plugins/summernote/summernote-bs4.min.js"></script>
-<!-- <script>
-  $(function () {
-    // Summernote
-    $('.summernote').summernote()
 
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
-    });
-  })
-</script> -->
 </body>
 </html>

@@ -1,21 +1,24 @@
 <?php
 session_start();
+
+$_SESSION["mnu"]="admin_target";
+$_SESSION["mnu_in"]="manager_trgt";
+
 if (!isset($_SESSION['username'])) {
   header('Location: ../index.php');
 }
 $con = new mysqli('localhost', 'root', '', 'crm');
-$id = $_GET['id'];
-$marketing_target = $con->query("SELECT marketing_target.id,marketing_target.admin_id,marketing_target.amount,marketing_target.target_month,marketing_target.created_at,admin.name FROM `marketing_target`JOIN admin ON marketing_target.admin_id=admin.id where marketing_target.id=" . $id)->fetch_assoc();
-var_dump($marketing_target);
+$marketing_target= $con->query('SELECT marketing_target.id,marketing_target.admin_id,marketing_target.amount,marketing_target.target_month,marketing_target.created_at,admin.name FROM `marketing_target`JOIN admin ON marketing_target.admin_id=admin.id order by id desc');
+$data = $con->query('SELECT * from `admin` where `admin`.`role`="marketing" and `parent`='.$_SESSION["id"] );
 
 if (isset($_POST['amount'])) {
-  $admin = $_POST['admin_id'];
-  $amount = $_POST['amount'];
-  $month = $_POST['month'];
-  $created_at = $_POST['created_at'];
+  $admin =$_POST['admin_id'];
+  $amount =$_POST['amount'];
+  $month =$_POST['month'];
+  $created_at=$_POST['created_at'];
   $query = "INSERT INTO marketing_target (admin_id,amount, target_month,created_at)VALUES('$admin',' $amount','$month','$created_at')";
   $con->query($query);
-  // header('Location:marketing_target.php');
+  header('Location:marketing_target.php');
 };
 
 ?>
@@ -35,6 +38,7 @@ if (isset($_POST['amount'])) {
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="../cstmStyle/style.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -78,9 +82,7 @@ if (isset($_POST['amount'])) {
     </nav>
     <!-- /.navbar -->
 
-    <?php
-    require('../menu.php');
-    ?>
+    <?php require('../menu.php'); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -110,46 +112,45 @@ if (isset($_POST['amount'])) {
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-header">
-                  <h5 class="m-0"> Edit Marketing Manager Target</h5>
+                   <h5 class="m-0"> Create Marketing Manager Target</h5> 
                 </div>
                 <div class="card-body">
-                  <form action="marketing_target_update.php?id=<?php echo $marketing_target['admin_id'] ?>&tr_mnth=<?php echo $marketing_target['target_month']; ?>&crt_dt=<?php echo $marketing_target['created_at']; ?>" method="post" enctype="multipart/form-data">
+                  <form action="" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Target Month </label>
-                            <input type="text" name="month" class="form-control" disabled='true' id="exampleInputEmail1" value="<?php echo $marketing_target['target_month'] ?>">
-                            <input type="date" name="month" class="form-control" id="exampleInputEmail1" value="<?php echo $marketing_target['target_month'] ?>">
-                          </div>
-
-                          <div class="form-group">
                             <label for="exampleInputEmail1">Marketing Manager</label>
-                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="" value="<?php echo $marketing_target['name'] ?>">
-                          </div>
-
-                        </div>
-
-                        <div class="col-6">
-
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">Date </label>
-                            <input type="text" name="created_at" class="form-control" disabled='true' id="exampleInputEmail1" value="<?php echo $marketing_target['created_at'] ?>">
-                            <input type="date" name="created_at" class="form-control" id="exampleInputEmail1" value="<?php echo $marketing_target['created_at'] ?>">
-
+                            <select name="admin_id" id="admin_id" class="form-control"> 
+                                <option value="">Select Marketing Manager </option>
+                              <?php while ($d = $data->fetch_assoc()) { //var_dump($d) 
+                              ?>
+                                  
+                                <option value="<?php echo $d['id'] ?>"><?php echo $d['name'] ?></option>
+                              <?php } ?>
+                            </select>
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">Amount</label>
-                            <input type="text" name="amount" class="form-control" id="exampleInputEmail1" placeholder="" value="<?php echo $marketing_target['amount'] ?>">
+                            <input type="text" name="amount" class="form-control" id="exampleInputEmail1" placeholder="">
                           </div>
 
-
                         </div>
-
+                        <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Target Month</label>
+                            <input type="date" name="month" class="form-control" id="exampleInputEmail1" placeholder="">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Date</label>
+                            <input type="date" name="created_at" class="form-control" id="exampleInputEmail1" placeholder="">
+                          </div>                          
+                        </div>
+                        
                         <div class="form-group col-12">
                           <label for="exampleInputEmail1"></label>
                           <input type="submit" class="btn btn-primary btn-block" value="Save">
-                        </div>                        
+                        </div>
                       </div>
 
                     </div>
@@ -166,7 +167,38 @@ if (isset($_POST['amount'])) {
 
           </div>
           <!-- /.row -->
-
+          <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h5 class="m-0">Marketing Manager Target List</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tr>
+                <th>SL</th>
+                <th>Marketing Manager</th>
+                <th>Amount</th>
+                <th>Target Month</th>
+                <th>Date</th>
+                <th colspan="2">Action</th>
+              </tr>
+              <?php $i = 0;
+              while ($d = $marketing_target->fetch_assoc()) {
+                // echo("<pre>");
+                // var_dump($d);
+              ?>
+                <tr>
+                  <td><?php echo ++$i ?></td>
+                  <td><?php echo $d['name'] ?></td>
+                  <td><?php echo $d['amount'] ?></td>
+                  <td><?php echo $d['target_month'] ?></td>
+                  <td><?php echo $d['created_at'] ?></td>
+                  <td><a href="marketing_target_edit.php?id=<?php echo $d['id'] ?>" class="btn btn-success btn-xs">Edit</a></td>
+                  <td><a href="marketing_target_delete.php?id=<?php echo $d['id'] ?>" class="btn btn-danger btn-xs">Delete</a></td>
+                </tr>
+              <?php } ?>
+            </table>
+          </div>
+        </div>
           <!-- /.container-fluid -->
         </div>
         <!-- /.content -->
@@ -184,9 +216,9 @@ if (isset($_POST['amount'])) {
       <!-- /.control-sidebar -->
 
       <!-- Main Footer -->
-      <footer>
-
-      </footer>
+      
+        
+      
     </div>
     <!-- ./wrapper -->
 
@@ -210,7 +242,12 @@ if (isset($_POST['amount'])) {
           theme: "monokai"
         });
       })
-    </script>
+
+
+
+      
+       
+      </script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 }
 $con = new mysqli('localhost', 'root', '', 'crm');
 
-$create = $con->query("SELECT admin_target.id,  admin_target.admin_id, admin.name, admin_target.amount, admin_target.target_month, admin_target.created_at FROM admin_target JOIN admin ON admin_target.admin_id=admin.id order by id desc");
+$create = $con->query("SELECT admin_target.id, admin_target.admin_id, admin.name, admin_target.amount, admin_target.target_month, admin_target.created_at FROM admin_target JOIN admin ON admin_target.admin_id=admin.id  where admin.role='admin' order by admin.id desc ");
 $data = $con->query('SELECT * FROM admin where role="admin" order by id desc');
 
 if (isset($_POST['name'])) {
@@ -21,9 +21,6 @@ if (isset($_POST['name'])) {
   $con->query($query);
   header('Location: admin_target.php');
 };
-
-  
-  
 
 ?>
 <!DOCTYPE html>
@@ -50,8 +47,6 @@ if (isset($_POST['name'])) {
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-
-
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
@@ -89,8 +84,7 @@ if (isset($_POST['name'])) {
     </nav>
     <!-- /.navbar -->
 
-    <?php
-    include("../menu.php")  ?>
+    <?php include("../menu.php")  ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -133,11 +127,9 @@ if (isset($_POST['name'])) {
                               <option value="">Select Admin</option>
                             <?php while ($d = $data->fetch_assoc()) { ?>
                               <option value="<?php echo $d['id']?>"><?php echo $d['name']?></option>
-                              <?php } ?>
-                              
+                              <?php } ?>                              
                             </select>
                            
-
                             <!-- <input type="text" name="<?php echo $d['id']?>" class="form-control" id="exampleInputEmail1" value="<?php echo $d['name']?>"> -->
                             
 
@@ -160,14 +152,13 @@ if (isset($_POST['name'])) {
                           <div class="form-group">
                             <label for="exampleInputEmail1">Date </label>
                             <input type="date" name="date" class="form-control" id="exampleInputEmail1" placeholder="">
-                          </div>
-                         
+                          </div>                         
                         </div>
 
                         <div class="form-group col-12">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="submit" class="btn btn-primary btn-block" value="Save">
-                          </div>
+                          <label for="exampleInputEmail1"></label>
+                          <input type="submit" class="btn btn-primary btn-block" value="Save">
+                        </div>
                           
                       </div>
 
@@ -181,7 +172,6 @@ if (isset($_POST['name'])) {
               </div>
             </div>
             <!-- /.col-md-6 -->
-
           </div>
           <!-- /.row -->
           <div class="card card-primary card-outline">
@@ -198,11 +188,10 @@ if (isset($_POST['name'])) {
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
-                <?php $i = 0;
-                while ($data = $create->fetch_assoc()) { ?>
+                <?php $n = 0; while ($data = $create->fetch_assoc()) { ?>
                 
                   <tr>
-                    <td><?php echo ++$i ?></td>
+                    <td><?php echo ++$n ?></td>
                     <td><?php echo $data['name'] ?></td>
                     <td><?php echo $data['amount'] ?></td>
                     <td><?php echo $data['target_month'] ?></td>

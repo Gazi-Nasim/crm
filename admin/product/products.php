@@ -1,27 +1,29 @@
 <?php
 session_start();
-
-$_SESSION["mnu"]="admin_target";
-$_SESSION["mnu_in"]="manager_trgt";
+$_SESSION["mnu"]="products";
+$_SESSION["mnu_in"]="asr_pdtcs";
 
 if (!isset($_SESSION['username'])) {
   header('Location: ../index.php');
 }
 $con = new mysqli('localhost', 'root', '', 'crm');
-$marketing_target= $con->query('SELECT marketing_target.id,marketing_target.admin_id,marketing_target.amount,marketing_target.target_month,marketing_target.created_at,admin.name FROM `marketing_target`JOIN admin ON marketing_target.admin_id=admin.id order by id desc');
-$data = $con->query('SELECT * from `admin` where `admin`.`role`="marketing" and `parent`='.$_SESSION["id"] );
-
-if (isset($_POST['amount'])) {
-  $admin =$_POST['admin_id'];
-  $amount =$_POST['amount'];
-  $month =$_POST['month'];
-  $created_at=$_POST['created_at'];
-  $query = "INSERT INTO marketing_target (admin_id,amount, target_month,created_at)VALUES('$admin',' $amount','$month','$created_at')";
+$q = "SELECT * FROM products";
+$data = $con->query($q);
+if (isset($_POST['name'])) {
+  $name = $_POST['name'];
+  $dealer_price = $_POST['dealer_price'];
+  $mrp = $_POST['mrp'];
+  $unit = $_POST['unit'];
+  $vat = $_POST['vat'];
+  $status = $_POST['status'];
+  echo $query = "INSERT INTO products (name,dealer_price,mrp,unit,vat,status)VALUES('$name','$dealer_price','$mrp','$unit','$vat','$status')";
   $con->query($query);
-  header('Location:marketing_target.php');
-};
+   header('Location: products.php');
+}
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +35,6 @@ if (isset($_POST['amount'])) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
@@ -68,6 +69,7 @@ if (isset($_POST['amount'])) {
             </form>
           </div>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
@@ -93,12 +95,12 @@ if (isset($_POST['amount'])) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Starter Page</h1>
+              <h1 class="m-0">Insert your Products</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Starter Page</li>
+                <li class="breadcrumb-item"><a href="#">Page-1</a></li>
+                <li class="breadcrumb-item active">Insert Page</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -114,7 +116,7 @@ if (isset($_POST['amount'])) {
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-header">
-                   <h5 class="m-0"> Create Marketing Manager Target</h5> 
+                  <h5 class="m-0"> </h5>
                 </div>
                 <div class="card-body">
                   <form action="" method="post" enctype="multipart/form-data">
@@ -122,43 +124,78 @@ if (isset($_POST['amount'])) {
                       <div class="row">
                         <div class="col-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Marketing Manager</label>
-                            <select name="admin_id" id="admin_id" class="form-control"> 
-                                <option value="">Select Marketing Manager </option>
-                              <?php while ($d = $data->fetch_assoc()) { //var_dump($d) 
-                              ?>
-                                  
-                                <option value="<?php echo $d['id'] ?>"><?php echo $d['name'] ?></option>
-                              <?php } ?>
-                            </select>
+                            <label for="exampleInputEmail1">Product Name</label>
+                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Product ">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Amount</label>
-                            <input type="text" name="amount" class="form-control" id="exampleInputEmail1" placeholder="">
+                            <label for="exampleInputEmail1">Dealer Amount</label>
+                            <input type="text" name="dealer_price" class="form-control" id="exampleInputEmail1" placeholder="Enter Dealer Price ">
                           </div>
-
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">MRP</label>
+                            <input type="text" name="mrp" class="form-control" id="exampleInputEmail1" placeholder="Enter MRP ">
+                          </div>
                         </div>
-                        <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Target Month</label>
-                            <input type="date" name="month" class="form-control" id="exampleInputEmail1" placeholder="">
+                        <div class="class col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Unit</label>
+                            <input type="text" name="unit" class="form-control" id="exampleInputEmail1" placeholder="Enter Unit ">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Date</label>
-                            <input type="date" name="created_at" class="form-control" id="exampleInputEmail1" placeholder="">
+                            <label for="exampleInputEmail1">Vat</label>
+                            <input type="text" name="vat" class="form-control" id="exampleInputEmail1" placeholder="Enter Vat ">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="submit" class="btn btn-primary btn-block" value="Save">
+                            <label for="exampleInputEmail1">Status</label><br>
+                            <td>
+                              <input name="status" type="radio" value="active" checked /> Active
+                              <input name="status" type="radio" value="inactive" /> Inactive
+                            </td>
                           </div>
                         </div>
                       </div>
-
+                      <div class="form-group">
+                        <label for="exampleInputEmail1"></label>
+                        <input type="submit" class="btn btn-primary btn-block" value="Save">
+                      </div>
                     </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
+                      <div class="col-lg-12">
+                        <div class="card card-primary card-outline">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Dealer_Price</th>
+                                <th>MRP</th>
+                                <th>Unit</th>
+                                <th>VAT</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody id="pID">
+                              <?php $n=0; while ($d = $data->fetch_assoc()) { ?>
+                                <tr>
+                                  <td><?php echo ++$n ?></td>
+                                  <td><?php echo $d['name'] ?></td>
+                                  <td><?php echo $d['dealer_price'] ?></td>
+                                  <td><?php echo $d['mrp'] ?></td>
+                                  <td><?php echo $d['unit'] ?></td>
+                                  <td><?php echo $d['vat'] ?></td>
+                                  <td>
+                                    <a href="product_edit.php?id=<?php echo $d['id'] ?>" class="btn btn-success btn-xs">Edit</a>
+                                    <a href="product_delete.php?name=<?php echo $d['name'] ?>" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                  </td>
+                                </tr>
+                              <?php } ?>
+                            </tbody>
+                          </table>
+                        </div>
 
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -186,40 +223,7 @@ if (isset($_POST['amount'])) {
       <!-- /.control-sidebar -->
 
       <!-- Main Footer -->
-      <footer>
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0">Create Marketing Manager Target</h5>
-          </div>
-          <div class="card-body">
-            <table class="table table-bordered">
-              <tr>
-                <th>SL</th>
-                <th>Marketing Manager</th>
-                <th>Amount</th>
-                <th>Target Month</th>
-                <th>Date</th>
-                <th colspan="2">Action</th>
-              </tr>
-              <?php $i = 0;
-              while ($d = $marketing_target->fetch_assoc()) {
-                // echo("<pre>");
-                // var_dump($d);
-              ?>
-                <tr>
-                  <td><?php echo ++$i ?></td>
-                  <td><?php echo $d['name'] ?></td>
-                  <td><?php echo $d['amount'] ?></td>
-                  <td><?php echo $d['target_month'] ?></td>
-                  <td><?php echo $d['created_at'] ?></td>
-                  <td><a href="marketing_target_edit.php?id=<?php echo $d['id'] ?>" class="btn btn-success btn-xs">Edit</a></td>
-                  <td><a href="marketing_target_delete.php?id=<?php echo $d['id'] ?>" class="btn btn-danger btn-xs">Delete</a></td>
-                </tr>
-              <?php } ?>
-            </table>
-          </div>
-        </div>
-      </footer>
+
     </div>
     <!-- ./wrapper -->
 
@@ -232,23 +236,6 @@ if (isset($_POST['amount'])) {
     <!-- AdminLTE App -->
     <script src="../dist/js/adminlte.min.js"></script>
     <script src="../plugins/summernote/summernote-bs4.min.js"></script>
-    <script>
-      $(function() {
-        // Summernote
-        $('.summernote').summernote()
-
-        // CodeMirror
-        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-          mode: "htmlmixed",
-          theme: "monokai"
-        });
-      })
-
-
-
-      
-       
-      </script>
 </body>
 
 </html>

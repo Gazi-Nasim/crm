@@ -208,7 +208,7 @@ $totl_pages = ceil($rows / 5);
 
                           <div class="form-group">
                             <label for="exampleInputEmail1">Status</label><br>
-                            <input type="radio" name="status" id="" value="active"> Active
+                            <input type="radio" name="status" id="" value="active" checked> Active
                             <input type="radio" name="status" id="" value="InActive"> InActive
                           </div>
                         </div>
@@ -253,14 +253,12 @@ $totl_pages = ceil($rows / 5);
                                 <a href="./nasim_gazi/admin_view.php?id=<?php echo $d['id'] ?>" class="btn btn-xs btn-primary">View</a>
                               </td>
                             </tr>
-                          <?php ++$i;
-                          } ?>
+                          <?php ++$i;  } ?>
                         </tbody>
                       </table>
                       <?php
 
                       if ($page > 1) {
-
                         echo "<a href='admin.php?page=" . ($page - 1) . "' class='btn  btn-primary find_page'> << </a>";
                       }
 

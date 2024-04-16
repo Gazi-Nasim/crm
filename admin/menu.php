@@ -1,5 +1,5 @@
 <?php
-$base_url = "http://localhost/crm/admin";
+$base_url = "http://localhost/raw_php/crm/admin";
 ?>
 
 <!-- Main Sidebar Container -->
@@ -73,7 +73,7 @@ $base_url = "http://localhost/crm/admin";
 
                 <ul class="nav nav-treeview">
                   <li class="nav-item  ">
-                    <a href="<?php echo $base_url ?>/ashraful/products.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "asr_pdtcs") { echo "active_one"; } ?>">
+                    <a href="<?php echo $base_url ?>/product/products.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "asr_pdtcs") { echo "active_one"; } ?>">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Products</p>
                     </a>
@@ -87,21 +87,21 @@ $base_url = "http://localhost/crm/admin";
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item " >
-                    <a href="<?php echo $base_url ?>/mamun/admin_target.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "ad_trgt_active") { echo "active_one"; } ?>">
+                    <a href="<?php echo $base_url ?>/target/admin_target.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "ad_trgt_active") { echo "active_one"; } ?>">
                       <i class="fas fa-calculator"></i>
                       <p >Create Admin Target</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="<?php echo $base_url ?>/mamun/admin_target_list.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "ad_trgt_list") { echo "active_one"; } ?>">
+                    <a href="<?php echo $base_url ?>/target/admin_target_list.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "ad_trgt_list") { echo "active_one"; } ?>">
                       <i class="fas fa-calculator"></i>
                       <p>Admin Target List</p>
                     </a>
                   </li>
 
                   <li class="nav-item ">
-                    <a href="<?php echo $base_url ?>/alamin/marketing_target.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "manager_trgt") { echo "active_one"; } ?>">
+                    <a href="<?php echo $base_url ?>/target/marketing_target.php" class="nav-link <?php if ($_SESSION["mnu_in"] == "manager_trgt") { echo "active_one"; } ?>">
                       <i class="fas fa-calculator"></i>
                       <p>Create Manager Target</p>
                     </a>

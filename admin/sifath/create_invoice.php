@@ -39,7 +39,7 @@ if (isset($_POST['dealID'])) {
     $s_vat = $vat[$index];
     $s_price = $price[$index];
     $s_stotal = $stotal[$index];
-    echo $query = "INSERT INTO `invoice`(id, dealer_id, invoice_id, product_id, price, quantity, total, vat, discount, payable, created_at, created_by)VALUES(null, $dealID, $invID, $s_prID, $s_price, $s_qID, $total, $s_vat, $discount, $s_stotal, '$create_at', $create_by)";
+    $query = "INSERT INTO `invoice`(id, dealer_id, invoice_id, product_id, price, quantity, total, vat, discount, payable, created_at, created_by)VALUES(null, $dealID, $invID, $s_prID, $s_price, $s_qID, $total, $s_vat, $discount, $s_stotal, '$create_at', $create_by)";
     $con->query($query);
   }
 
@@ -372,10 +372,6 @@ if (isset($_POST['dealID'])) {
       $(document).on('change', '#product', function() {
         let id = $(this).val();
 
-
-
-
-
         $.getJSON('fetch_data.php?id=' + id, function(data) {
           //first vul ekhane chiloh apnar, fetch_data.php diye j id ta pathiyechen oi file ta create na korle kaj hobe nah. r kore thakle amake oi file ta pathate vule gesen.
           let ht = `<tr  id="rem_${i}">
@@ -406,6 +402,14 @@ if (isset($_POST['dealID'])) {
             gtotal += v;
           })
           $('#gt').text(gtotal);
+          let discount = $('#dis').val()
+          let amountDis = (gtotal * discount) / 100;
+          $('#adis').text(amountDis);
+          let ntotal = gtotal - amountDis;
+          $('#net').val(ntotal)
+          let paid = $('#gt1').val()
+          let due = ntotal - paid
+          $('#gt2').text(due)
 
         })
 
@@ -413,25 +417,32 @@ if (isset($_POST['dealID'])) {
     });
 
     function r_(i) {
-      $('#rem_' + i).remove()
+      $('#rem_' + i).remove();
+      let gtotal = 0;
+      $('.total').each(function(e) {
+        let v = parseInt($(this).val());
+        gtotal += v;
+      })
+      $('#gt').text(gtotal);
+      let discount = $('#dis').val()
+      let amountDis = (gtotal * discount) / 100;
+      $('#adis').text(amountDis);
+      let ntotal = gtotal - amountDis;
+      $('#net').val(ntotal)
+      let paid = $('#gt1').val()
+      let due = ntotal - paid
+      $('#gt2').text(due)
     }
 
     function payable(d) {
       let price = $('#m_' + d).val();
-
       let qty = $('#q_' + d).val();
-
       let tax = $('#tx_' + d).val();
-
       let total = price * qty;
       $('#t_' + d).val(total);
       let subtotal = (total) + (total * tax) / 100;
-
       $('#p_' + d).val(subtotal);
-
-
       let gtotal = 0;
-
       //gtotal hisab korar jonno protita payable element er class same hote hobe. tai dekhben ht er moddhe 6 no td te id er pasha pashi ekta class dhore newa hoise. jeta dhore nicher function ta kaj kora hoise
 
       $('.total').each(function(e) {
@@ -444,7 +455,6 @@ if (isset($_POST['dealID'])) {
       $('#adis').text(amountDis);
       let ntotal = gtotal - amountDis;
       $('#net').val(ntotal)
-
       let paid = $('#gt1').val()
       let due = ntotal - paid
       $('#gt2').text(due)
