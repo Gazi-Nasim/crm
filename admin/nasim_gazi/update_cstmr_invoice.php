@@ -5,9 +5,9 @@ if (!isset($_SESSION['username'])) {
   header('Location: ../index.php');
 }
 
-echo "<pre>";
-var_dump($_POST);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($_POST);
+// echo "</pre>";
 
 $con = new mysqli('localhost', 'root', '', 'crm');
 $invoice_id = $_GET['invoice_id'];
@@ -34,7 +34,7 @@ foreach ($qID as $indx => $qIDs) {
   $s_price = $price[$indx];
   $s_total = $total[$indx];
 
-  echo $query = "INSERT INTO `customer_invoice` (`id`, `dealer_id`, `customer_id`, `type`, `invoice_id`, `product_id`, `price`, `quantity`, `total`, `vat`, `discount`, `payable`, `created_at`, `created_by`) VALUES (NULL, " . $dealer_id . ", " . $customer_id . ", '" . $type . "', " . $invoice_id . ", " . $s_prID . ", " . $s_price . ", " . $s_qID . ", " . $s_total . ", " . $s_vat . ", " . $discount . ", " . $pable . ", '" . $create_at . "', " . $created_by . ")";
+  $query = "INSERT INTO `customer_invoice` (`id`, `dealer_id`, `customer_id`, `type`, `invoice_id`, `product_id`, `price`, `quantity`, `total`, `vat`, `discount`, `payable`, `created_at`, `created_by`) VALUES (NULL, " . $dealer_id . ", " . $customer_id . ", '" . $type . "', " . $invoice_id . ", " . $s_prID . ", " . $s_price . ", " . $s_qID . ", " . $s_total . ", " . $s_vat . ", " . $discount . ", " . $pable . ", '" . $create_at . "', " . $created_by . ")";
 
   $con->query($query);
 }

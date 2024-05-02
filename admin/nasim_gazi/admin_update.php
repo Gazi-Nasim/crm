@@ -1,5 +1,5 @@
 <?php
-var_dump($_POST);
+// var_dump($_POST);
 $con=new mysqli('localhost','root','','crm');
 $id=$_GET['id'];
 $name = $_POST['name'];
@@ -19,7 +19,7 @@ if(isset($_POST['parent'])){
 
 
 
-echo $qy = "UPDATE `admin` SET name='$name',email ='$email',password ='$password',phone= '$phone', `status`='$status', `parent`='$parent' WHERE id=".$id ;
+$qy = "UPDATE `admin` SET name='$name',email ='$email',password ='$password',phone= '$phone', `status`='$status', `parent`='$parent' WHERE id=".$id ;
 $con->query($qy);
 
 

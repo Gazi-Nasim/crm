@@ -48,7 +48,6 @@ if ($_SESSION['role'] == 'marketing') {
 
 $dataV = $db->query($datas);
 
-
 if ($_SESSION['role'] == 'super') {
   $in_ros = $db->query("SELECT * FROM `admin`");
 }
@@ -63,6 +62,13 @@ if ($_SESSION['role'] == 'marketing') {
 // $in_ros = $db->query("SELECT * FROM `admin` ");
 $rows = mysqli_num_rows($in_ros);
 $totl_pages = ceil($rows / 5);
+include("./crud.php");
+
+if(isset($_GET['delete_id'])){
+  $instance=new Crud();
+  $instance->deleteData('admin',$_GET['delete_id']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -249,8 +255,9 @@ $totl_pages = ceil($rows / 5);
                               <td><?php echo $d['role'] ?></td>
                               <td>
                                 <a href="./nasim_gazi/admin_edit.php?id=<?php echo $d['id'] ?>" class="btn btn-success btn-xs">Edit</a>
-                                <a href="./nasim_gazi/admin_delete.php?id=<?php echo $d['id'] ?>" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                <!-- <a href="./nasim_gazi/admin_delete.php?id=<?php //echo $d['id'] ?>" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</a> -->
                                 <a href="./nasim_gazi/admin_view.php?id=<?php echo $d['id'] ?>" class="btn btn-xs btn-primary">View</a>
+                                <a href="./admin.php?delete_id=<?php echo $d['id'] ?>" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
                               </td>
                             </tr>
                           <?php ++$i;  } ?>
@@ -319,11 +326,9 @@ $totl_pages = ceil($rows / 5);
   <script>
     $(document).ready(function() {
 
-
       $("#role").change(function() {
         let rl = $(this).val();
         if (rl != 'admin') {
-
           $.ajax({
             url: "seniorData.php",
             method: "get",
@@ -350,12 +355,7 @@ $totl_pages = ceil($rows / 5);
           console.log('vaiOKKKi')
         }
 
-
       })
-
-
-
-
     })
   </script>
 </body>

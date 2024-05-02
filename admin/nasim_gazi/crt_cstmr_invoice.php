@@ -54,7 +54,7 @@ if (isset($_POST['proID'])) {
     $s_price = $price[$indx];
     $s_total = $total[$indx];
 
-    echo $query = ("INSERT INTO
+    $query = ("INSERT INTO
      `customer_invoice` (`id`, `dealer_id`, `customer_id`, `type`, `invoice_id`,`product_id`, `price`, `quantity`, `total`, `vat`, `discount`, `payable`, `created_at`, `created_by`) VALUES
       (NULL, " . $dealer_id . ", " . $customer_id . ", '" . $type . "', " . $invID . ", " . $s_prID . ", " . $s_price . ", " . $s_qID . ", " . $s_total . ", " . $s_vat . ", " . $discount . ", " . $pable . ", '" . $create_at . "', " . $created_by . ")");;
 
